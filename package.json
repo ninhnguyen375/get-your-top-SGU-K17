@@ -6,8 +6,7 @@
   "dependencies": {
     "crawler": "^1.2.1",
     "dotenv": "^7.0.0",
-    "express": "^4.16.4",
-    "facebook-chat-api": "^1.6.1"
+    "express": "^4.16.4"
   },
   "devDependencies": {
     "pug": "^2.0.3"
