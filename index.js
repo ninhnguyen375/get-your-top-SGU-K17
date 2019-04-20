@@ -26,7 +26,7 @@ const c = new Crawler({
       diemHe4.push(
         parseFloat(
           $('.row-diemTK')
-            .eq(1)
+            .eq(3)
             .find('.Label')
             .eq(1)
             .text()
@@ -49,7 +49,7 @@ const c2 = new Crawler({
       // );
       diemHe4Cua1SV = parseFloat(
         $('.row-diemTK')
-          .eq(1)
+          .eq(3)
           .find('.Label')
           .eq(1)
           .text()

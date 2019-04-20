@@ -68,9 +68,19 @@ const getMonth = lines => {
 };
 
 const makeupArray = arr => {
-  return [...new Set(arr)]
-    .filter(item => item != '' && item != null)
-    .sort((a, b) => b - a);
+  return arr.filter(item => item != '' && item != null).sort((a, b) => b - a);
+};
+
+const calculateTop = (diem, arr) => {
+  let top = 0;
+  for (let i = 0; i < arr.length; i++) {
+    if (diem < arr[i]) {
+      top++;
+    } else {
+      break;
+    }
+  }
+  return top;
 };
 
 const getTop = async studentID => {
@@ -96,10 +106,8 @@ const getTop = async studentID => {
       return;
     }
     diemHe4 = makeupArray(diemHe4);
-    const studentQuantity = res.data.diemHe4.filter(
-      item => item != '' && item != null
-    ).length;
-    const top = diemHe4.findIndex(e => e === diemHe4Cua1SV) + 1;
+    const studentQuantity = diemHe4.length;
+    const top = calculateTop(diemHe4Cua1SV, diemHe4) + 1;
 
     result.innerHTML = `
       <p class="alert alert-success">
