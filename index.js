@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const Crawler = require('crawler');
-const PORT = process.env. || 3000
+const PORT = process.env.PORT || 3000;
 
 let studentName = [];
 let diemHe4 = [];
