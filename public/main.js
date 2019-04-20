@@ -99,7 +99,7 @@ const getTop = async studentID => {
     const studentQuantity = res.data.diemHe4.filter(
       item => item != '' && item != null
     ).length;
-    const top = diemHe4.findIndex(e => e === diemHe4Cua1SV);
+    const top = diemHe4.findIndex(e => e === diemHe4Cua1SV) + 1;
 
     result.innerHTML = `
       <p class="alert alert-success">
