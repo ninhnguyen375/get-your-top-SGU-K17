@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const Crawler = require('crawler');
+cosnt PORT = process.env. || 3000
 
 let studentName = [];
 let diemHe4 = [];
@@ -90,4 +91,4 @@ app.get('/api/:id', async (req, res) => {
 
   res.send({ studentName, diemHe4, diemHe4Cua1SV });
 });
-app.listen(3000);
+app.listen(PORT, () => console.log('Listen on port ' + PORT));
