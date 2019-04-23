@@ -1,94 +1,62 @@
 require('dotenv').config();
 const express = require('express');
+
+const fs = require('fs');
 const app = express();
-const Crawler = require('crawler');
 const PORT = process.env.PORT || 3000;
 
-let studentName = [];
-let diemHe4 = [];
-let diemHe4Cua1SV = '';
-const urls = [];
-
-app.set('view engine', 'pug');
-app.use(express.static('public'));
-
-const c = new Crawler({
-  maxConnections: 1000,
-  jQuery: true,
-  callback: function(error, res, done) {
-    if (error) {
-      console.log(error);
-    } else {
-      const $ = res.$;
-      // studentName.push(
-      //   $('#ctl00_ContentPlaceHolder1_ctl00_lblContentTenSV').text()
-      // );
-      diemHe4.push(
-        parseFloat(
-          $('.row-diemTK')
-            .eq(3)
-            .find('.Label')
-            .eq(1)
-            .text()
-        )
-      );
-    }
-    done();
-  }
-});
-const c2 = new Crawler({
-  maxConnections: 1000,
-  jQuery: true,
-  callback: function(error, res, done) {
-    if (error) {
-      console.log(error);
-    } else {
-      const $ = res.$;
-      // studentName.push(
-      //   $('#ctl00_ContentPlaceHolder1_ctl00_lblContentTenSV').text()
-      // );
-      diemHe4Cua1SV = parseFloat(
-        $('.row-diemTK')
-          .eq(3)
-          .find('.Label')
-          .eq(1)
-          .text()
-      );
-    }
-    done();
-  }
-});
-
-const getInfo = urls => {
-  c.queue(urls);
-};
-
-const getInfoOfID = async url => {
-  await c2.queue(url);
-};
-
-for (let i = 3117410000; i < 3117410400; i++) {
-  // urls.push(
-  //   'http://thongtindaotao.sgu.edu.vn/default.aspx?page=thoikhoabieu&sta=0&id=' +
-  //     i
-  // );
-  urls.push(
-    'http://thongtindaotao.sgu.edu.vn/Default.aspx?page=xemdiemthi&id=' + i
-  );
-}
-
-getInfo(urls);
-
 app.get('/', async (req, res) => {
-  res.render('index');
+  res.send(`
+    <h4>API List</h4>
+    <p>/api/diemhe4_k17</p>
+    <p>/api/diemhe4_k18</p>
+    <p>/api/diemhe4_k17__DTN</p>
+    <p>/api/diemhe4_k18__DTN</p>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  `);
 });
 
-app.get('/api/:id', async (req, res) => {
+// APIs
+app.get('/api/diemhe4_k17/:id', async (req, res) => {
   const { id } = req.params;
-  await getInfoOfID(
-    'http://thongtindaotao.sgu.edu.vn/Default.aspx?page=xemdiemthi&id=' + id
-  );
-
-  res.send({ studentName, diemHe4, diemHe4Cua1SV });
+  fs.readFile('./db/DiemHe4_K17.json', 'utf-8', (err, data) => {
+    if (err) res.status(400).statusMessage(err.message);
+    else {
+      const myData = JSON.parse(data);
+      const hs = myData.find(item => {
+        return item.mssv === id;
+      });
+      res.json(hs || `Hiện tại chưa dữ liệu cho sinh viên ${id}`);
+    }
+  });
 });
+
+app.get('/api/diemhe4_k17', async (req, res) => {
+  fs.readFile('./db/DiemHe4_K17.json', 'utf-8', (err, data) => {
+    if (err) res.status(400).statusMessage(err.message);
+    else res.json(JSON.parse(data));
+  });
+});
+
+app.get('/api/diemhe4_k18', async (req, res) => {
+  fs.readFile('./db/DiemHe4_K18.json', 'utf-8', (err, data) => {
+    if (err) res.status(400).statusMessage(err.message);
+    else res.json(JSON.parse(data));
+  });
+});
+
+app.get('/api/diemhe4_k17__DTN', async (req, res) => {
+  fs.readFile('./db/DiemHe4_K17__DTN.json', 'utf-8', (err, data) => {
+    if (err) res.status(400).statusMessage(err.message);
+    else res.json(JSON.parse(data));
+  });
+});
+
+app.get('/api/diemhe4_k18__DTN', async (req, res) => {
+  fs.readFile('./db/DiemHe4_K18__DTN.json', 'utf-8', (err, data) => {
+    if (err) res.status(400).statusMessage(err.message);
+    else res.json(JSON.parse(data));
+  });
+});
+
 app.listen(PORT, () => console.log('Listen on port ' + PORT));
