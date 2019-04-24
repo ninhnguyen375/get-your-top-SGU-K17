@@ -5,17 +5,22 @@ html(lang="en")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     meta(http-equiv="X-UA-Compatible", content="ie=edge")
     link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css")
-    title Document
+    title Get Your Top
   body
     .container.d-flex.justify-content-center
       form
         h1.text-center Your Top
-        input.form-control(name='mssv' type="text" placeholder="MSSV" pattern="[0-9]{10}" required)
+        select.form-control#K
+          option(value="17") CNTT K17
+          option(value="18") CNTT K18
+          option(value="17__DTN") Tài chính - Ngân hàng K17
+          option(value="18__DTN") Tài chính - Ngân hàng K18
+        input.form-control.mt-3(name='mssv' type="text" placeholder="MSSV" pattern="[0-9]{10}" required)
         input.d-block.btn.btn-primary.mt-2(type="submit", value="See Your Top")
         .content.mt-5
           #result
     .text-center
-      b.alert.alert-danger Khoa CNTT khóa 17 - SGU
+      a.text-center(target="blank" href="https://github.com/ninhnguyen375/get-your-top-SGU-K17") Project on Github
     script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" )
     script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" )

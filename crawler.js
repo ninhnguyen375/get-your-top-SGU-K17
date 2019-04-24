@@ -36,7 +36,7 @@ const c = new Crawler({
       };
 
       if (data.diem) {
-        diemK17Data.push(data);
+        diemK18Data.push(data);
       }
     }
     done();
@@ -44,13 +44,13 @@ const c = new Crawler({
 });
 
 setTimeout(() => {
-  fs.writeFile(diemK17FilePath, JSON.stringify(diemK17Data), err => {
+  fs.writeFile(diemK18FilePath, JSON.stringify(diemK18Data), err => {
     err && console.log(err);
   });
   console.log('done');
 }, 10000);
 
-for (let i = 3117410000; i < 3117410400; i++) {
+for (let i = 3118410000; i < 3118410400; i++) {
   urls.push(
     'http://thongtindaotao.sgu.edu.vn/Default.aspx?page=xemdiemthi&id=' + i
   );
